@@ -135,6 +135,25 @@ CMD ["-jar" "app.jar]</code></pre>
 
 ## Build multi-stages
 
+<div class="cols">
+    <div class="shell right">
+        <iframe data-src="https://heeeeeeeey.com/"></iframe>
+    </div>
+    <div>
+        <pre><code class="dockerfile"># build stage
+FROM golang:alpine AS build-env
+RUN mkdir /src
+ADD hello.go /src
+RUN cd /src && go build -o goapp
+
+# final stage
+FROM alpine
+WORKDIR /app
+COPY --from=build-env /src/goapp /app/
+ENTRYPOINT ./goapp</code></pre>
+    </div>
+</div>
+
 ---
 
 # LayerFS

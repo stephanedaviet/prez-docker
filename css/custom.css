@@ -5,11 +5,17 @@ strong {
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
+}
+.cols {
+    flex-direction: row;
+    height: 100%;
 }
 .rows {
     flex-direction: column;
+    width: 100%;
 }
-.cols > div {
+.cols > div, .rows > div {
     flex: 1 1 auto;
 }
 .reveal .footnote {
@@ -21,11 +27,22 @@ strong {
     opacity: 0.5;
 }
 .shell {
-
+    position: relative;
 }
 .shell.up, .shell.down {
     width: 100%;
 }
-.shell iframe {
+.shell.left, .shell.right {
+    height: 100%;
+}
+.shell.up iframe {
     width: 100%;
+}
+.shell.left iframe {
+    height: 100%;
+}
+iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
