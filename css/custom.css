@@ -1,10 +1,13 @@
 strong {
     color: #78b9e6;
 }
-.cols {
+.cols, .rows {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.rows {
+    flex-direction: column;
 }
 .cols > div {
     flex: 1 1 auto;

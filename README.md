@@ -2,6 +2,10 @@
 
 Présentation réalisée avec [reveal.js](https://github.com/stephanedaviet/prez-docker).
 
+## Prérequis
+
+* Il est nécessaire d'avoir [Gotty](https://github.com/yudai/gotty) (ou tout autre émulateur de terminal Web servi sur un port 8080).
+
 ## Howto
 
 * Cloner le projet,
