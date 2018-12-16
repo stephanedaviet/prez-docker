@@ -40,34 +40,51 @@ Facilité d'utilisation & conception ingénieuse :
 
 --- ---
 
-## Interaction avec le registre
+## Pour commencer
 
 <div class="rows">
+    <div class="shell up">
+        <iframe data-src="http://localhost:8080"></iframe>
+    </div>
     <div>
         <ul>
-            <li><code>docker pull &lt;image-name&gt;</code></li>
+            <li><code>docker pull &lt;image-name&gt;<sup>[1]</sup></code></li>
             <li><code>docker run &lt;image-name&gt;</code></li>
-            <li><code>docker push &lt;image-name</code></li>
         </ul>
     </div>
-    <div style="padding-top: 1em; width: 100%">
-        <iframe data-src="http://localhost:8080" width="100%" />
-    </div>
 </div>
+<div class="footnote"><sup>[1]</sup> Nom complet : [registry-url/]image-name[:version]</div>
 
 --- ---
 
 ## Manipulation des images
 
 <div class="rows">
+    <div class="shell up">
+        <iframe data-src="http://localhost:8080"></iframe>
+    </div>
     <div>
         <ul>
-            <li><code>docker images</code></li>
+            <li><code>docker images -a</code></li>
             <li><code>docker rmi &lt;image-name&gt;</code></li>
         </ul>
     </div>
-    <div style="padding-top: 1em; width: 100%">
-        <iframe data-src="http://localhost:8080" width="100%" />
+</div>
+
+--- ---
+
+## Les conteneurs
+
+<div class="rows">
+    <div class="shell up">
+        <iframe data-src="http://localhost:8080"></iframe>
+    </div>
+    <div>
+        <ul>
+            <li><code>docker run</code></li>
+            <li><code>docker ps -a</code></li>
+            <li><code>docker rm</code></li>
+            <li><code>docker exec -it</code></li>
     </div>
 </div>
 

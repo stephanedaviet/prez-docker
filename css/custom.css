@@ -12,3 +12,17 @@ strong {
 .cols > div {
     flex: 1 1 auto;
 }
+.reveal .footnote {
+    font-style: italic;
+    font-size: smaller;
+    opacity: 0.5;
+}
+.reveal sup {
+    opacity: 0.5;
+}
+.shell {
+
+}
+.shell.up, .shell.down {
+    width: 100%;
+}
