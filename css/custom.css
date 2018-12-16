@@ -26,3 +26,6 @@ strong {
 .shell.up, .shell.down {
     width: 100%;
 }
+.shell iframe {
+    width: 100%;
+}

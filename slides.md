@@ -81,10 +81,10 @@ Facilité d'utilisation & conception ingénieuse :
     </div>
     <div>
         <ul>
-            <li><code>docker run</code></li>
+            <li><code>docker run -t &lt;container-name&gt; &lt;image-name&gt;</code></li>
             <li><code>docker ps -a</code></li>
-            <li><code>docker rm</code></li>
-            <li><code>docker exec -it</code></li>
+            <li><code>docker rm &lt;container-name&gt;</code></li>
+            <li><code>docker exec -it &lt;container-name&gt; &lt;command&gt;</code></li>
     </div>
 </div>
 
@@ -92,9 +92,48 @@ Facilité d'utilisation & conception ingénieuse :
 
 # Le Dockerfile
 
----
+--- ---
 
-# Images & conteneurs
+## Anatomie
+
+<pre><code class="dockerfile">FROM openjdk
+
+RUN mkdir app
+
+WORKDIR /app
+
+VOLUME /certs
+
+ENV _JAVA_OPTS -XmX 256M
+
+COPY target/app.jar .
+
+ENTRYPOINT java
+
+EXPOSE 8080
+
+CMD ["-jar" "app.jar]</code></pre>
+
+--- ---
+
+## Création & publication d'une image
+
+<div class="rows">
+    <div class="shell up">
+        <iframe data-src="http://localhost:8080"></iframe>
+    </div>
+    <div>
+        <ul>
+            <li><code>docker build - &lt;image-name&gt; .</code></li>
+            <li><code>docker push &lt;image-name&gt;</code></li>
+            <li><code>docker tag &lt;source-image-name&gt; &lt;target-image-name&gt;</code></li>
+        </ul>
+    </div>
+</div>
+
+--- ---
+
+## Build multi-stages
 
 ---
 
