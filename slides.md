@@ -11,7 +11,7 @@ par Julien Bourgoin & Stéphane Daviet
 
 > 37 milliards de pull d'images fin 2018
 
-<img src="img/adoption.png" width="60%" />
+<img src="img/adoption.png" width="50%" />
 
 ---
 
@@ -32,11 +32,32 @@ Facilité d'utilisation & conception ingénieuse :
 
 > 1,8 million d'images disponibles
 
-<img src="img/dockerHub.png" width="80%" />
+<img src="img/dockerHub.png" width="70%" />
+
+!!!
+
+* Images officielles & library
+* Vulnerability security scanning
 
 ---
 
 # Le client
+
+--- ---
+
+### Connexion avec le démon
+
+<div class="rows">
+    <div class="shell up">
+        <iframe data-src="http://localhost:8080"></iframe>
+    </div>
+    <div>
+        <ul>
+            <li>Protocole HTTP & API REST</li>
+            <li>Démon = service système</li>
+        </ul>
+    </div>
+</div>
 
 --- ---
 
@@ -124,7 +145,8 @@ CMD ["-jar" "app.jar]</code></pre>
     </div>
     <div>
         <ul>
-            <li><code>docker build - &lt;image-name&gt; .</code></li>
+            <li><code>docker build -t &lt;image-name&gt; .</code></li>
+            <li><code>docker login &lt;registry-url&gt;</code></li>
             <li><code>docker push &lt;image-name&gt;</code></li>
             <li><code>docker tag &lt;source-image-name&gt; &lt;target-image-name&gt;</code></li>
         </ul>
@@ -157,6 +179,10 @@ ENTRYPOINT ./goapp</code></pre>
 ---
 
 # LayerFS
+
+--- ---
+
+
 
 ---
 

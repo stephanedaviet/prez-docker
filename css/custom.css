@@ -37,6 +37,7 @@ strong {
 }
 .shell.up iframe {
     width: 100%;
+    height: 300px;
 }
 .shell.left iframe {
     height: 100%;

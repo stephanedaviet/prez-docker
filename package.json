@@ -7,7 +7,7 @@
   "main": "js/reveal.js",
   "scripts": {
     "test": "grunt test",
-    "start": "grunt serve",
+    "start": "wetty -p 8080 --sshauth publickey,password --sshkey ~/.ssh/id_rsa | grunt serve",
     "build": "grunt"
   },
   "author": {
@@ -20,7 +20,7 @@
     "url": "git://github.com/hakimel/reveal.js.git"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=4.0.0 <=8"
   },
   "devDependencies": {
     "express": "^4.16.2",
@@ -41,6 +41,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "reveal.js-menu": "^1.2.0"
+    "reveal.js-menu": "^1.2.0",
+    "wetty": "^0.2.0"
   }
 }
