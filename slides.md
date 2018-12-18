@@ -153,16 +153,21 @@ Stéphane
 
 ## Anatomie
 
-Un ensemble de quelques mots clés pour tout faire :
+Une grammaire simple :
 ```dockerfile
 FROM openjdk:8u111-alpine
+
 RUN addgroup -g 10064 dck && adduser -S -u 10064 -G dck admdck
 RUN mkdir -p app
+
 VOLUME /etc/localtime:/etc/localtime:ro
 ENV _JAVA_OPTIONS="-Duser.timezone=Europe/Paris"
+
 WORKDIR /app
 COPY target/app.jar .
+
 EXPOSE 8080
+
 USER admdck
 ENTRYPOINT java
 CMD ["-jar", "app.jar"]
@@ -215,18 +220,18 @@ CMD ["-jar", "app.jar"]
         <iframe data-src="http://localhost:8080"></iframe>
     </div>
     <div>
-
-```dockerfile
-FROM golang:alpine AS build-env
+        <!-- &nbsp; = astuce pour éviter une ligne vide, bug renderer marked -->
+        <pre><code class="dockerfile">FROM golang:alpine AS build-env
 RUN mkdir /src
 ADD hello.go /src
 RUN cd /src && go build -o goapp
-
+&nbsp;
 FROM alpine
 WORKDIR /app
 COPY --from=build-env /src/goapp /app/
-ENTRYPOINT ./goapp
-```
+ENTRYPOINT ./goapp</code></pre>
+    </div>
+</div>
 
 !!!
 
@@ -238,7 +243,9 @@ ENTRYPOINT ./goapp
 
 L'image golang:alpine fait 287Mo, quand l'image finale de l'application fait 5,71Mo
 
-</div>
+--- ---
+
+# TODO
 
 !!!
 
@@ -264,9 +271,10 @@ Julien
         <iframe data-src="http://localhost:8080"></iframe>
     </div>
     <div>
-        Une image est constitué de plusieurs couches :
-        * celles des images sur lesquelles elle se base directement & transitivement,
-        * celles introduites par les instructions de son Dockerfile.
+        <ul>Une image est constitué de plusieurs couches :
+            <li>celles des images sur lesquelles elle se base directement & transitivement,</li>
+            <li>celles introduites par les instructions de son Dockerfile.</li>
+        </ul>
     </div>
 </div>
 
@@ -278,6 +286,25 @@ Julien
 --- ---
 
 ## Dockerfile
+
+<div class="rows">
+    <div>
+        <ul>
+            <li>Chaque ligne d'un Dockerfile produit un layer,</li>
+            <li>La modification d'une ligne entraine la reconstruction du layer associé et tous les suivants,</li>
+            <li>Certaines instructions en dépendances avec un contenu externe comme COPY entrainent la reconstruction du layer si ce contenu change,</li>
+            <li>L'ordre des instructions doit être optimisé pour éviter la reconstruction systématique des layers.</li>
+        </ul>
+    </div>
+    <div class="cols" style="width: 100%">
+        <div class="shell right" style="flex: 1 1 auto">
+            <iframe data-src="http://localhost:8080"></iframe>
+        </div>
+        <div class="shell left" style="flex: 1 1 auto">
+            <iframe data-src="http://localhost:8080"></iframe>
+        </div>
+    </div>
+</div>
 
 --- ---
 
