@@ -91,8 +91,10 @@ Julien
 
 !!!
 
+JULIEN
 1. `service docker status`
 2. `curl --unix-socket /var/run/docker.sock http://localhost/images/json | jq .`
+3. `docker version`
 
 --- ---
 
@@ -114,9 +116,10 @@ Julien
 
 !!!
 
-1. `docker pull alpine`,
-2. `docker images -a`,
-3. `docker rmi alpine`.
+JULIEN
+1. `docker pull alpine`
+2. `docker images -a`
+3. `docker rmi alpine`
 
 --- ---
 
@@ -137,9 +140,10 @@ Julien
 
 !!!
 
-* `docker run hello-world`,
-* `docker ps -a`,
-* `docker run -it alpine`.
+JULIEN
+* `docker run hello-world`
+* `docker ps -a`
+* `docker run -it alpine`
 
 ---
 
@@ -208,8 +212,11 @@ CMD ["-jar", "app.jar"]
 
 !!!
 
-* `docker build -t webpage .`,
-* `docker run webpage`.
+* `cd builds/webpage`
+* `docker build -t webpage .`
+* `docker run webpage`
+* `docker tag webpage stephanedaviet/webpage:latest`
+* `docker push stephanedaviet/webpage:latest`
 
 --- ---
 
@@ -235,7 +242,7 @@ ENTRYPOINT ./goapp</code></pre>
 
 !!!
 
-* `cd multistage-build`,
+* `cd builds/multistage`,
 * `docker build -f Dockerfile -t multistage/hello .`,
 * `docker run --rm multistage/hello`,
 * `docker history multistage/hello`,
@@ -260,7 +267,7 @@ L'image golang:alpine fait 287Mo, quand l'image finale de l'application fait 5,7
 
 !!!
 
-Julien
+JULIEN
 
 --- ---
 
@@ -280,8 +287,9 @@ Julien
 
 !!!
 
-* Téléchargement image de base : `docker pull debian:jessie-slim`,
-* Téléchargement image Node basé sur la première : `docker pull node:carbon-jessie-slim`.
+JULIEN
+* Téléchargement image de base : `docker pull debian:jessie-slim`
+* Téléchargement image Node basé sur la première : `docker pull node:carbon-jessie-slim`
 
 --- ---
 
@@ -294,6 +302,8 @@ Julien
             <li>La modification d'une ligne entraine la reconstruction du layer associé et tous les suivants,</li>
             <li>Certaines instructions en dépendances avec un contenu externe comme COPY entrainent la reconstruction du layer si ce contenu change,</li>
             <li>L'ordre des instructions doit être optimisé pour éviter la reconstruction systématique des layers.</li>
+			<li>Le regroupement des instructions RUN est conseillée si possible</li>
+			<li>Attention au cache !</li>
         </ul>
     </div>
     <div class="cols" style="width: 100%">
@@ -305,6 +315,13 @@ Julien
         </div>
     </div>
 </div>
+
+!!!
+
+JULIEN
+* `cd builds/layers`
+* `docker build -f Dockerfile.dumb -t testlayer-dumb .`
+* `docker build -f Dockerfile.better -t testlayer-better .`
 
 --- ---
 

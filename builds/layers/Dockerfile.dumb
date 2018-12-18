@@ -1,0 +1,8 @@
+FROM alpine:3.8
+
+WORKDIR /tmp
+RUN apk add --no-cache curl
+RUN curl https://raw.githubusercontent.com/stephanedaviet/prez-docker/master/files/big-archive.tgz -o big-archive.tgz
+RUN tar zxvf big-archive.tgz
+RUN rm big-archive.tgz
+RUN rm -rf /tmp/big-archive
