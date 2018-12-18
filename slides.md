@@ -7,13 +7,34 @@ par Julien Bourgoin & Stéphane Daviet
 
 ---
 
+# Pourquoi Docker ?
+
+<img src="https://media.giphy.com/media/dXICCcws9oxxK/giphy.gif" />
+
+!!!
+
+Stéphane
+
+--- ---
+
 ## Un plébiscite
 
 > 37 milliards de pull d'images fin 2018
 
 <img src="img/adoption.png" width="50%" />
 
----
+--- ---
+
+## Quelques éléments clés
+
+<ul>
+    <li class="fragment" data-fragment-index="1">Open-source,</li>
+    <li class="fragment" data-fragment-index="2">Facilite la mise en œuvre d'architecture Cloud (twelve factors),</li>
+    <li class="fragment" data-fragment-index="3">Écosystème riche,</li>
+    <li class="fragment" data-fragment-index="4">Basé sur des technos éprouvées (HTTP, cgroup & namespace, layer FS).</li>
+</ul>
+
+--- ---
 
 ## Pourquoi le succès Docker ?
 
@@ -23,10 +44,10 @@ Facilité d'utilisation & conception ingénieuse :
     <li class="fragment" data-fragment-index="1">le **registre** pour stocker & récupérer des images prêtes à l'emploi,</li>
     <li class="fragment" data-fragment-index="2">**Dockerfile** pour décrire la construction d'une image,</li>
     <li class="fragment" data-fragment-index="3">**Docker client** pour lancer simplement les actions usuelles (en commandant un démon),</li>
-    <li class="fragment" data-fragment-index="4">images basées sur des **système de fichiers en couches** très efficace.</li>
+    <li class="fragment" data-fragment-index="4">images basées sur des **système de fichiers en couches** très efficace (optimisation de la taille).</li>
 </ul>
 
----
+--- ---
 
 ## Le registre
 
@@ -36,12 +57,21 @@ Facilité d'utilisation & conception ingénieuse :
 
 !!!
 
-* Images officielles & library
-* Vulnerability security scanning
+* Repository public & privé d'images Docker (par défaut à l'install), à la npm,
+* Système de notation communautaire,
+* Images officielles & library,
+* Vulnerability security scanning,
+* Recherche possible avec la commande `docker search`.
 
 ---
 
 # Le client
+
+<img src="https://media.giphy.com/media/l0MYJ3p6Eg2tUHq6s/giphy.gif" />
+
+!!!
+
+Julien
 
 --- ---
 
@@ -53,28 +83,16 @@ Facilité d'utilisation & conception ingénieuse :
     </div>
     <div>
         <ul>
-            <li>Protocole HTTP & API REST</li>
             <li>Démon = service système</li>
+            <li>Protocole HTTP & API REST</li>
         </ul>
     </div>
 </div>
 
---- ---
+!!!
 
-## Pour commencer
-
-<div class="rows">
-    <div class="shell up">
-        <iframe data-src="http://localhost:8080"></iframe>
-    </div>
-    <div>
-        <ul>
-            <li><code>docker pull &lt;image-name&gt;<sup>[1]</sup></code></li>
-            <li><code>docker run &lt;image-name&gt;</code></li>
-        </ul>
-    </div>
-</div>
-<div class="footnote"><sup>[1]</sup> Nom complet : [registry-url/]image-name[:version]</div>
+1. `service docker status`
+2. `curl --unix-socket /var/run/docker.sock http://localhost/images/json | jq .`
 
 --- ---
 
@@ -86,11 +104,19 @@ Facilité d'utilisation & conception ingénieuse :
     </div>
     <div>
         <ul>
-            <li><code>docker images -a</code></li>
-            <li><code>docker rmi &lt;image-name&gt;</code></li>
+            <li>Récupération : <code>docker pull &lt;image-name&gt;<sup>[1]</sup></code></li>
+            <li>Listing : <code>docker images -a</code></li>
+            <li>Suppression : <code>docker rmi &lt;image-name&gt;</code></li>
         </ul>
     </div>
 </div>
+<div class="footnote"><sup>[1]</sup> Nom complet : [registry-url/]image-name[:version]</div>
+
+!!!
+
+1. `docker pull alpine`,
+2. `docker images -a`,
+3. `docker rmi alpine`.
 
 --- ---
 
@@ -102,38 +128,60 @@ Facilité d'utilisation & conception ingénieuse :
     </div>
     <div>
         <ul>
-            <li><code>docker run -t &lt;container-name&gt; &lt;image-name&gt;</code></li>
-            <li><code>docker ps -a</code></li>
-            <li><code>docker rm &lt;container-name&gt;</code></li>
-            <li><code>docker exec -it &lt;container-name&gt; &lt;command&gt;</code></li>
+            <li>Exécution : <code>docker run -t &lt;container-name&gt; &lt;image-name&gt;</code></li>
+            <li>Listing : <code>docker ps -a</code></li>
+            <li>Suppression : <code>docker rm &lt;container-name&gt;</code></li>
+            <li>Exécution intra conteneur : <code>docker exec -it &lt;container-name&gt; &lt;command&gt;</code></li>
     </div>
 </div>
+
+!!!
+
+* `docker run hello-world`,
+* `docker ps -a`,
+* `docker run -it alpine`.
 
 ---
 
 # Le Dockerfile
 
+!!!
+
+Stéphane
+
 --- ---
 
 ## Anatomie
 
-<pre><code class="dockerfile">FROM openjdk
-
-RUN mkdir app
-
+Un ensemble de quelques mots clés pour tout faire :
+```dockerfile
+FROM openjdk:8u111-alpine
+RUN addgroup -g 10064 dck && adduser -S -u 10064 -G dck admdck
+RUN mkdir -p app
+VOLUME /etc/localtime:/etc/localtime:ro
+ENV _JAVA_OPTIONS="-Duser.timezone=Europe/Paris"
 WORKDIR /app
-
-VOLUME /certs
-
-ENV _JAVA_OPTS -XmX 256M
-
 COPY target/app.jar .
-
-ENTRYPOINT java
-
 EXPOSE 8080
+USER admdck
+ENTRYPOINT java
+CMD ["-jar", "app.jar"]
+```
 
-CMD ["-jar" "app.jar]</code></pre>
+!!!
+
+* Explication de chacune des instructions :
+  * `FROM` : image de base,
+  * `RUN` : exécution d'une commande,
+  * `VOLUME` : partage d'un volume avec l'hôte,
+  * `ENV` : déclaration de variable d'environnement,
+  * `COPY` : copie d'un élément de l'hôte dans l'image,
+  * `WORKDIR` : définition du répertoir de travail,
+  * `EXPOSE` : port exposé,
+  * `USER` : utilisateur exécutant les prochaines commandes,
+  * `ENTRYPOINT` : commande executée lors du démarrage d'un container basé sur cette image
+  * `CMD` : paramètres par défaut de l'ENTRYPOINT
+  * et quelques autres…
 
 --- ---
 
@@ -145,49 +193,126 @@ CMD ["-jar" "app.jar]</code></pre>
     </div>
     <div>
         <ul>
-            <li><code>docker build -t &lt;image-name&gt; .</code></li>
-            <li><code>docker login &lt;registry-url&gt;</code></li>
-            <li><code>docker push &lt;image-name&gt;</code></li>
-            <li><code>docker tag &lt;source-image-name&gt; &lt;target-image-name&gt;</code></li>
+            <li>Construction : <code>docker build -t &lt;image-name&gt; .</code></li>
+            <li>Authentification au registre : <code>docker login &lt;registry-url&gt;</code></li>
+            <li>Nommage : <code>docker tag &lt;source-image-name&gt; &lt;target-image-name&gt;</code></li>
+            <li>Récupération : <code>docker push &lt;image-name&gt;</code></li>
         </ul>
     </div>
 </div>
+
+!!!
+
+* `docker build -t webpage .`,
+* `docker run webpage`.
 
 --- ---
 
 ## Build multi-stages
 
 <div class="cols">
-    <div class="shell right">
-        <iframe data-src="https://heeeeeeeey.com/"></iframe>
+    <div class="shell left">
+        <iframe data-src="http://localhost:8080"></iframe>
     </div>
     <div>
-        <pre><code class="dockerfile"># build stage
+
+```dockerfile
 FROM golang:alpine AS build-env
 RUN mkdir /src
 ADD hello.go /src
 RUN cd /src && go build -o goapp
 
-# final stage
 FROM alpine
 WORKDIR /app
 COPY --from=build-env /src/goapp /app/
-ENTRYPOINT ./goapp</code></pre>
-    </div>
+ENTRYPOINT ./goapp
+```
+
+!!!
+
+* `cd multistage-build`,
+* `docker build -f Dockerfile -t multistage/hello .`,
+* `docker run --rm multistage/hello`,
+* `docker history multistage/hello`,
+* `docker images`.
+
+L'image golang:alpine fait 287Mo, quand l'image finale de l'application fait 5,71Mo
+
 </div>
+
+!!!
+
+* `docker build -t webpage .`,
+* `docker run goapp`.
 
 ---
 
-# LayerFS
+# Layers
+
+<img src="https://media.giphy.com/media/jHTrcBVhfCGNq/giphy-downsized.gif" />
+
+!!!
+
+Julien
 
 --- ---
 
+## Docker pull
 
+--- ---
+
+## Dockerfile
+
+--- ---
+
+## Layered filesystems
+
+---
+
+# Liens avec l'hôte
+
+!!! Stéphane
+
+--- ---
+
+## Exposition de ports
+
+--- ---
+
+## Montage de volumes
+
+---
+
+# Sécurité & common flaws
+
+!!! Julien
+
+--- ---
+
+## Images cacas
+
+--- ---
+
+## Élévation de privilèges
 
 ---
 
 # DockerInDocker
 
+!!! Julien
+
+--- ---
+
+## Le faux Docker in Docker
+
+--- ---
+
+## Le vrai
+
 ---
 
-# Sécurité & common flaws
+# Quelques liens
+
+---
+
+# Vos questions

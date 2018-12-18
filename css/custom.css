@@ -1,3 +1,6 @@
+.reveal {
+    font-size: 30px;
+}
 strong {
     color: #78b9e6;
 }
@@ -33,11 +36,14 @@ strong {
     width: 100%;
 }
 .shell.left, .shell.right {
-    height: 100%;
+    height: 350px;
 }
 .shell.up iframe {
     width: 100%;
     height: 300px;
+}
+.shell.left {
+    flex: 4 6 auto;
 }
 .shell.left iframe {
     height: 100%;
