@@ -41,6 +41,8 @@
   },
   "license": "MIT",
   "dependencies": {
+    "highlight.js": "^9.13.1",
+    "reveal-code-focus": "^1.1.0",
     "reveal.js-menu": "^1.2.0",
     "wetty": "^0.2.0"
   }

@@ -259,6 +259,22 @@ Julien
 
 ## Docker pull
 
+<div class="rows">
+    <div class="shell up">
+        <iframe data-src="http://localhost:8080"></iframe>
+    </div>
+    <div>
+        Une image est constitué de plusieurs couches :
+        * celles des images sur lesquelles elle se base directement & transitivement,
+        * celles introduites par les instructions de son Dockerfile.
+    </div>
+</div>
+
+!!!
+
+* Téléchargement image de base : `docker pull debian:jessie-slim`,
+* Téléchargement image Node basé sur la première : `docker pull node:carbon-jessie-slim`.
+
 --- ---
 
 ## Dockerfile
