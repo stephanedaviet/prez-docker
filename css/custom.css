@@ -1,10 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400');
 
 .reveal {
     font-size: 30px;
 }
 .reveal code {
     font-family: 'Source Code Pro', monospace;
+    color: coral;
+    font-weight: 300;
+    font-size: 0.9em;
+}
+.reveal code.hljs {
+    color: white;
+    font-weight: 400;
+    font-size: 1em;
 }
 strong {
     color: #78b9e6;
