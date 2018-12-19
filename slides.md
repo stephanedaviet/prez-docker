@@ -1,9 +1,9 @@
-<i class="fab fa-docker fa-3x"></i>
+<i class="fab fa-docker fa-3x" style="color: #78b9e6"></i>
 # Docker
 
 ## Rapide & efficace
 
-par Julien Bourgoin & Stéphane Daviet
+par <strong>Julien Bourgoin</strong> & <strong>Stéphane Daviet</strong>
 
 ---
 
@@ -13,7 +13,7 @@ par Julien Bourgoin & Stéphane Daviet
 
 !!!
 
-Stéphane
+STÉPHANE
 
 --- ---
 
@@ -34,6 +34,10 @@ Stéphane
     <li class="fragment" data-fragment-index="4">Basé sur des technos éprouvées (HTTP, cgroup & namespace, layer FS).</li>
 </ul>
 
+!!!
+
+STÉPHANE
+
 --- ---
 
 ## Pourquoi le succès Docker ?
@@ -47,6 +51,10 @@ Facilité d'utilisation & conception ingénieuse :
     <li class="fragment" data-fragment-index="4">images basées sur des **système de fichiers en couches** très efficace (optimisation de la taille).</li>
 </ul>
 
+!!!
+
+STÉPHANE
+
 --- ---
 
 ## Le registre
@@ -57,6 +65,7 @@ Facilité d'utilisation & conception ingénieuse :
 
 !!!
 
+STÉPHANE
 * Repository public & privé d'images Docker (par défaut à l'install), à la npm,
 * Système de notation communautaire,
 * Images officielles & library,
@@ -71,7 +80,7 @@ Facilité d'utilisation & conception ingénieuse :
 
 !!!
 
-Julien
+JULIEN
 
 --- ---
 
@@ -151,7 +160,7 @@ JULIEN
 
 !!!
 
-Stéphane
+STÉPHANE
 
 --- ---
 
@@ -179,7 +188,7 @@ CMD ["-jar", "app.jar"]
 
 !!!
 
-* Explication de chacune des instructions :
+* STÉPHANE : Explication de chacune des instructions :
   * `FROM` : image de base,
   * `RUN` : exécution d'une commande,
   * `VOLUME` : partage d'un volume avec l'hôte,
@@ -212,9 +221,10 @@ CMD ["-jar", "app.jar"]
 
 !!!
 
+STÉPHANE
 * `cd builds/webpage`
 * `docker build -t webpage .`
-* `docker run webpage`
+* `docker run -d --name=webpage webpage`
 * `docker tag webpage stephanedaviet/webpage:latest`
 * `docker push stephanedaviet/webpage:latest`
 
@@ -242,6 +252,7 @@ ENTRYPOINT ./goapp</code></pre>
 
 !!!
 
+STÉPHANE
 * `cd builds/multistage`,
 * `docker build -f Dockerfile -t multistage/hello .`,
 * `docker run --rm multistage/hello`,
@@ -249,15 +260,6 @@ ENTRYPOINT ./goapp</code></pre>
 * `docker images`.
 
 L'image golang:alpine fait 287Mo, quand l'image finale de l'application fait 5,71Mo
-
---- ---
-
-# TODO
-
-!!!
-
-* `docker build -t webpage .`,
-* `docker run goapp`.
 
 ---
 
@@ -278,7 +280,7 @@ JULIEN
         <iframe data-src="http://localhost:8080"></iframe>
     </div>
     <div>
-        <ul>Une image est constitué de plusieurs couches :
+        <ul>Une image est constituée de plusieurs couches :
             <li>celles des images sur lesquelles elle se base directement & transitivement,</li>
             <li>celles introduites par les instructions de son Dockerfile.</li>
         </ul>
@@ -298,19 +300,21 @@ JULIEN
 <div class="rows">
     <div>
         <ul>
-            <li>Chaque ligne d'un Dockerfile produit un layer,</li>
-            <li>La modification d'une ligne entraine la reconstruction du layer associé et tous les suivants,</li>
-            <li>Certaines instructions en dépendances avec un contenu externe comme COPY entrainent la reconstruction du layer si ce contenu change,</li>
-            <li>L'ordre des instructions doit être optimisé pour éviter la reconstruction systématique des layers.</li>
-			<li>Le regroupement des instructions RUN est conseillée si possible</li>
-			<li>Attention au cache !</li>
+            <li><strong>1 instruction = 1 layer,</strong></li>
+            <li>principes si reconstruction d'une image  :
+                <ul>
+                    <li>si ligne non modifiée → réutilisation du layer associé conservé en cache (<i class="fas fa-exclamation-triangle" style="color: orange"></i>),</li>
+                    <li>si ligne modifié → reconstruction du layer associé et tous les suivants.</li>
+                </ul>
+            </li>
+            <li><i class="fas fa-exclamation-triangle" style="color: orange"></i> Optimiser l'ordre des instructions pour éviter trop de reconstruction des layers (regrouper les instructions RUN).</li>
         </ul>
     </div>
     <div class="cols" style="width: 100%">
-        <div class="shell right" style="flex: 1 1 auto">
+        <div class="shell left" style="flex: 1 1 auto">
             <iframe data-src="http://localhost:8080"></iframe>
         </div>
-        <div class="shell left" style="flex: 1 1 auto">
+        <div class="shell right" style="flex: 1 1 auto">
             <iframe data-src="http://localhost:8080"></iframe>
         </div>
     </div>
@@ -329,8 +333,12 @@ JULIEN
 
 <img src="img/container-unionfs-rw-layers.png" width="40%" />
 
-UnionFS, AuFS, Btrfs, zfs, overlay, overlay2, devicemapper
+* Stockage des layers basé sur des <strong>systèmes de fichiers pré-existants</strong> (_storage drivers_) : _UnionFS, AuFS, Btrfs, zfs, overlay, <strong>overlay2</strong>, devicemapper_,
+* Sur des systèmes utilisants <abbr title="Logical Volume Manager">LVM</abbr>, privilégier l'utilisation de _devicemapper_.
 
+!!!
+
+JULIEN
 
 ---
 
@@ -338,15 +346,66 @@ UnionFS, AuFS, Btrfs, zfs, overlay, overlay2, devicemapper
 
 !!!
 
-Stéphane
+STÉPHANE
 
 --- ---
 
 ## Exposition de ports
 
+<div class="rows">
+    <div class="cols" style="width: 100%">
+        <div class="shell left" style="flex: 1 1 auto">
+            <iframe data-src="http://localhost:8080"></iframe>
+        </div>
+        <div class="shell right" style="flex: 1 1 auto">
+            <iframe data-src="http://localhost"></iframe>
+        </div>
+    </div>
+    <div>
+        <ul>
+            <li>Mapping : <code>docker run -p &lt;port-externe&gt;:&lt;port-interne&gt; &lt;image-name&gt;</code></li>
+        </ul>
+    </div>
+</div>
+
+!!!
+
+STÉPHANE
+
+* `cd builds/webpage`
+* `docker ps`,
+* Refresh de la page,
+* `docker stop webpage`
+* `docker rm webpage`,
+* `docker run -d -p 80:80 webpage`,
+
 --- ---
 
 ## Montage de volumes
+
+<div class="rows">directory
+    <div class="cols">
+        <iframe data-src="http://localhost:8080"></iframe>
+    </div>
+    <div>
+        <ul>
+            <li>Mapping : <code>docker run -v &lt;port-externe&gt;:&lt;port-interne&gt; &lt;image-name&gt;</code></li>
+        </ul>
+    </div>
+</div>
+
+!!!
+
+STÉPHANE
+* `cd builds/webpage`
+* Suppression `COPY index.html /usr/share/nginx/html/`,
+* `docker build .`,
+* `docker run -v .:/usr/share/nginx/html/ -d --name=webpage webpage`
+* Refresh de la page,
+* Édition `vim index.html`,
+* Refresh de la page.
+
+---
 
 ---
 
