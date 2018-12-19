@@ -517,6 +517,15 @@ Julien
 
 # Quelques liens
 
+<div class="rows">
+    <div>
+        <ul>
+            <li>https://github.com/julienbourgoin/docker/</li>
+			<li>https://github.com/stephanedaviet/prez-docker/</li>
+        </ul>
+    </div>
+</div>
+
 ---
 
 # Vos questions
