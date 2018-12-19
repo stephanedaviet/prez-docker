@@ -445,7 +445,7 @@ Julien
     <div>
         <ul>
             <li>Mise en oeuvre facilitée avec l'image "docker:dind"</li>
-            <li>Cas d'usages particuliers</li>
+            <li>Cas d'usages très particuliers</li>
             <li>Restrictions diverses et variées (sur les FS notamment)</li>
         </ul>
     </div>
@@ -454,6 +454,8 @@ Julien
 !!!
 
 Julien
+
+* `docker run --privileged -d docker:dind`
 
 ---
 
