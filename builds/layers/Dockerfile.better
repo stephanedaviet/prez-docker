@@ -2,8 +2,7 @@ FROM alpine:3.8
 
 WORKDIR /tmp
 RUN apk add --no-cache --virtual .build-deps curl \
-    && curl https://raw.githubusercontent.com/stephanedaviet/prez-docker/master/files/big-archive.tgz -o big-archive.tgz \
-    && tar zxvf big-archive.tgz \
-    && rm big-archive.tgz \
-    && rm -rf /tmp/big-archive \
+    && curl https://dl.google.com/go/go1.11.4.src.tar.gz -o go1.11.4.src.tar.gz \
+    && tar --extract --file=go1.11.4.src.tar.gz go/test/zerodivide.go \
+    && rm go1.11.4.src.tar.gz \
     && apk del .build-deps
