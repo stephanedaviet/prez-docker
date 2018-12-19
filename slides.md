@@ -415,7 +415,7 @@ STÉPHANE
 
 !!!
 
-Julien
+JULIEN
 
 --- ---
 
@@ -436,7 +436,7 @@ Julien
 
 !!!
 
-Julien
+JULIEN
 
 --- ---
 
@@ -455,8 +455,7 @@ Julien
 
 !!!
 
-Julien
-
+JULIEN
 * `ls -al /root/secret.txt`
 * `docker run \-\-rm -v /root:/tmp alpine cat /tmp/secret.txt`
 
