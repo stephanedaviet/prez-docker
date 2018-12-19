@@ -224,7 +224,7 @@ CMD ["-jar", "app.jar"]
 STÉPHANE
 * `cd builds/webpage`
 * `docker build -t webpage .`
-* `docker run -d --name=webpage webpage`
+* `docker run -d \-\-name=webpage webpage`
 * `docker tag webpage stephanedaviet/webpage:latest`
 * `docker push stephanedaviet/webpage:latest`
 
@@ -245,7 +245,7 @@ RUN cd /src && go build -o goapp
 &nbsp;
 FROM alpine
 WORKDIR /app
-COPY --from=build-env /src/goapp /app/
+COPY \-\-from=build-env /src/goapp /app/
 ENTRYPOINT ./goapp</code></pre>
     </div>
 </div>
@@ -255,7 +255,7 @@ ENTRYPOINT ./goapp</code></pre>
 STÉPHANE
 * `cd builds/multistage`
 * `docker build -f Dockerfile -t multistage/hello .`
-* `docker run --rm multistage/hello`
+* `docker run \-\-rm multistage/hello`
 * `docker history multistage/hello`
 * `docker images`
 
@@ -361,9 +361,9 @@ STÉPHANE
             <iframe data-src="http://localhost:8080"></iframe>
         </div>
         <div class="shell right" style="flex: 1 1 auto">
-            <div style="height: 1.2em; background-color: lightgray; text-align: left; padding: 0.1em 0.2em; border-bottom: solid 1px black">http://localhost</div>
+            <div style="height: 1.2em; background-color: lightgray; text-align: left; padding: 0.1em 0.2em; border-bottom: solid 1px black">http://localhost/</div>
             <div style="border: solid 1px white; background-color: white; padding: 0.2em">
-                <iframe style="height: calc(300px - 1.2em)" data-src="http://localhost"></iframe>
+                <iframe style="height: calc(310px - 1.2em)" data-src="http://localhost"></iframe>
             </div>
         </div>
     </div>
@@ -404,7 +404,7 @@ STÉPHANE
 
 STÉPHANE
 * `cd builds/webpage`
-* `docker run -v .:/usr/share/nginx/html/ -d --name=server nginx`
+* `docker run -v .:/usr/share/nginx/html/ -d \-\-name=server nginx`
 * Refresh de la page
 * Édition `vim index.html`
 * Refresh de la page
@@ -458,26 +458,19 @@ Julien
 Julien
 
 * `ls -al /root/secret.txt`
-* `docker run --rm -v /tmp:/tmp alpine cat /tmp/secret.txt`
+* `docker run \-\-rm -v /root:/tmp alpine cat /tmp/secret.txt`
 
 --- ---
 
 ## Imposer des limites
 
-<div class="rows">
-    <div>
-        <ul>
-            <li>Limiter les process autorisés</li>
-            <li>Limiter la mémoire/cpu alloué</li>
-            <li>Faire des montages en read-only</li>
-        </ul>
-    </div>
-</div>
+* Limiter les process autorisés,
+* Limiter la mémoire/CPU alloué,
+* Faire des montages en read-only.
 
 !!!
 
-Julien
-
+JULIEN
 ---
 
 # Docker In Docker In Docker In…
@@ -486,7 +479,7 @@ Julien
 
 !!!
 
-Julien
+JULIEN
 
 --- ---
 
@@ -506,11 +499,10 @@ Julien
 
 !!!
 
-Julien
-
+JULIEN
 * `cd builds/dind`
 * `docker build -t julien:docker-client .`
-* `docker run --rm -v /var/run/docker.sock:/var/run/docker.sock julien:docker-client docker version`
+* `docker run \-\-rm -v /var/run/docker.sock:/var/run/docker.sock julien:docker-client docker version`
 
 --- ---
 
@@ -525,26 +517,22 @@ Julien
         </ul>
     </div>
 </div>
-<div class="footnote"><code>docker run --privileged -d docker:dind</code></div>
 
 !!!
 
-Julien
+JULIEN
+* `docker run \-\-privileged -d docker:dind`
 
 ---
 
 # Quelques liens
 
-<div class="rows">
-    <div>
-        <ul>
-            <li>https://github.com/julienbourgoin/docker/</li>
-			<li>https://github.com/stephanedaviet/prez-docker/</li>
-			<li>https://github.com/wsargent/docker-cheat-sheet</li>
-        </ul>
-    </div>
-</div>
+* https://github.com/julienbourgoin/docker/,
+* https://github.com/stephanedaviet/prez-docker/,
+* https://github.com/wsargent/docker-cheat-sheet.
 
 ---
 
 # Vos questions
+
+## (rapides bien entendu ou après la conf si on n'a plus de temps :-) )
