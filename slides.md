@@ -407,6 +407,8 @@ Julien
 
 # DockerInDocker
 
+<img src="img/spintop.jpg" width="50%" />
+
 !!!
 
 Julien
@@ -438,6 +440,16 @@ Julien
 --- ---
 
 ## Le vrai
+
+<div class="rows">
+    <div>
+        <ul>
+            <li>Mise en oeuvre facilitée avec l'image "docker:dind"</li>
+            <li>Cas d'usages particuliers</li>
+            <li>Restrictions diverses et variées (sur les FS notamment)</li>
+        </ul>
+    </div>
+</div>
 
 !!!
 
