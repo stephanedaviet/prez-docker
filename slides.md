@@ -358,25 +358,90 @@ Julien
 
 --- ---
 
-## Images cacas
+## Attention aux images mal intentionnées
+
+<div class="rows">
+    <div>
+        <ul>
+            <li>Utiliser en priorité les images officielles</li>
+            <li>Toujours regarder le Dockerfile</li>
+            <li>S'assurer que l'image a été générée avec ce Dockerfile</li>
+            <li>Vérifier les ressources téléchargées via wget ou curl ou ADD</li>
+            <li>Privilégier les images bien notées</li>
+			<li>Si possible, se faire sa propre image</li>
+        </ul>
+    </div>
+</div>
+
+!!!
+
+Julien
 
 --- ---
 
 ## Élévation de privilèges
 
+<div class="rows">
+    <div class="shell up">
+        <iframe data-src="http://localhost:8080"></iframe>
+    </div>
+    <div>
+        <ul>
+            <li>Penser à mapper les users correctement</li>
+        </ul>
+    </div>
+</div>
+
+!!!
+
+Julien
+
+* `sudo su -`
+* `echo "ceci est un contenu secret uniquement accessible a root" > /tmp/secret.txt`
+* `chmod 600 /tmp/secret.txt`
+* `exit`
+* `docker run --rm -v /tmp:/tmp alpine cat /tmp/secret.txt`
+
+
 ---
 
 # DockerInDocker
 
-!!! Julien
+!!!
+
+Julien
 
 --- ---
 
 ## Le faux Docker in Docker
 
+<div class="rows">
+    <div class="shell up">
+        <iframe data-src="http://localhost:8080"></iframe>
+    </div>
+    <div>
+        <ul>
+            <li>Installation du client docker dans l'image</li>
+            <li>Montage du socker unix du démon de l'hôte dans le container</li>
+        </ul>
+    </div>
+</div>
+
+!!!
+
+Julien
+
+* `cd builds/dind`
+* `docker build -t julien:docker-client .`
+* `docker run --rm -v /var/run/docker.sock:/var/run/docker.sock julien:docker-client docker version`
+
 --- ---
 
 ## Le vrai
+
+!!!
+
+Julien
 
 ---
 
