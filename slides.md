@@ -327,11 +327,18 @@ JULIEN
 
 ## Layered filesystems
 
+<img src="img/container-unionfs-rw-layers.png" width="40%" />
+
+UnionFS, AuFS, Btrfs, zfs, overlay, overlay2, devicemapper
+
+
 ---
 
 # Liens avec l'hôte
 
-!!! Stéphane
+!!!
+
+Stéphane
 
 --- ---
 
@@ -345,7 +352,9 @@ JULIEN
 
 # Sécurité & common flaws
 
-!!! Julien
+!!!
+
+Julien
 
 --- ---
 
