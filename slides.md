@@ -525,12 +525,11 @@ Julien
         </ul>
     </div>
 </div>
+<div class="footnote"><code>docker run --privileged -d docker:dind</code></div>
 
 !!!
 
 Julien
-
-* `docker run --privileged -d docker:dind`
 
 ---
 
