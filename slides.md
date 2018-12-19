@@ -390,7 +390,7 @@ STÉPHANE
 ## Montage de volumes
 
 <div class="rows">
-    <div>
+    <div class="shell up">
         <iframe data-src="http://localhost:8080"></iframe>
     </div>
     <div>
