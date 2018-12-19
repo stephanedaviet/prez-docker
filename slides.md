@@ -326,6 +326,7 @@ JULIEN
 * `cd builds/layers`
 * `docker build -f Dockerfile.dumb -t testlayer-dumb .`
 * `docker build -f Dockerfile.better -t testlayer-better .`
+* Fonctionnement en analogie avec les référentiels de sources
 
 --- ---
 
@@ -459,6 +460,24 @@ Julien
 * `ls -al /root/secret.txt`
 * `docker run --rm -v /tmp:/tmp alpine cat /tmp/secret.txt`
 
+--- ---
+
+## Imposer des limites
+
+<div class="rows">
+    <div>
+        <ul>
+            <li>Limiter les process autorisés</li>
+            <li>Limiter la mémoire/cpu alloué</li>
+            <li>Faire des montages en read-only</li>
+        </ul>
+    </div>
+</div>
+
+!!!
+
+Julien
+
 ---
 
 # Docker In Docker In Docker In…
@@ -522,6 +541,7 @@ Julien
         <ul>
             <li>https://github.com/julienbourgoin/docker/</li>
 			<li>https://github.com/stephanedaviet/prez-docker/</li>
+			<li>https://github.com/wsargent/docker-cheat-sheet</li>
         </ul>
     </div>
 </div>
