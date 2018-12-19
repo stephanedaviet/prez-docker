@@ -66,11 +66,11 @@ STÉPHANE
 !!!
 
 STÉPHANE
-* Repository public & privé d'images Docker (par défaut à l'install), à la npm,
-* Système de notation communautaire,
-* Images officielles & library,
-* Vulnerability security scanning,
-* Recherche possible avec la commande `docker search`.
+* Repository public & privé d'images Docker (par défaut à l'install), à la npm
+* Système de notation communautaire
+* Images officielles & library
+* Vulnerability security scanning
+* Recherche possible avec la commande `docker search`
 
 ---
 
@@ -253,11 +253,11 @@ ENTRYPOINT ./goapp</code></pre>
 !!!
 
 STÉPHANE
-* `cd builds/multistage`,
-* `docker build -f Dockerfile -t multistage/hello .`,
-* `docker run --rm multistage/hello`,
-* `docker history multistage/hello`,
-* `docker images`.
+* `cd builds/multistage`
+* `docker build -f Dockerfile -t multistage/hello .`
+* `docker run --rm multistage/hello`
+* `docker history multistage/hello`
+* `docker images`
 
 L'image golang:alpine fait 287Mo, quand l'image finale de l'application fait 5,71Mo
 
@@ -304,7 +304,7 @@ JULIEN
             <li>principes si reconstruction d'une image  :
                 <ul>
                     <li>si ligne non modifiée → réutilisation du layer associé conservé en cache (<i class="fas fa-exclamation-triangle" style="color: orange"></i>),</li>
-                    <li>si ligne modifié → reconstruction du layer associé et tous les suivants.</li>
+                    <li>si ligne modifiée → reconstruction du layer associé et tous les suivants.</li>
                 </ul>
             </li>
             <li><i class="fas fa-exclamation-triangle" style="color: orange"></i> Optimiser l'ordre des instructions pour éviter trop de reconstruction des layers (regrouper les instructions RUN).</li>
@@ -331,7 +331,7 @@ JULIEN
 
 ## Layered filesystems
 
-<img src="img/container-unionfs-rw-layers.png" width="40%" />
+<img src="img/container-unionfs-rw-layers.png" width="35%" />
 
 * Stockage des layers basé sur des <strong>systèmes de fichiers pré-existants</strong> (_storage drivers_) : _UnionFS, AuFS, Btrfs, zfs, overlay, <strong>overlay2</strong>, devicemapper_,
 * Sur des systèmes utilisants <abbr title="Logical Volume Manager">LVM</abbr>, privilégier l'utilisation de _devicemapper_.
@@ -343,6 +343,8 @@ JULIEN
 ---
 
 # Liens avec l'hôte
+
+<img src="https://media.giphy.com/media/dng7u2mrY7Gfe/giphy.gif" height="300px" width="auto" />
 
 !!!
 
@@ -358,7 +360,10 @@ STÉPHANE
             <iframe data-src="http://localhost:8080"></iframe>
         </div>
         <div class="shell right" style="flex: 1 1 auto">
-            <iframe data-src="http://localhost"></iframe>
+            <div style="height: 1.2em; background-color: lightgray; text-align: left; padding: 0.1em 0.2em; border-bottom: solid 1px black">http://localhost</div>
+            <div style="border: solid 1px white; background-color: white; padding: 0.2em">
+                <iframe style="height: calc(300px - 1.2em)" data-src="http://localhost"></iframe>
+            </div>
         </div>
     </div>
     <div>
@@ -373,18 +378,18 @@ STÉPHANE
 STÉPHANE
 
 * `cd builds/webpage`
-* `docker ps`,
-* Refresh de la page,
+* `docker ps`
+* Refresh de la page
 * `docker stop webpage`
-* `docker rm webpage`,
-* `docker run -d -p 80:80 webpage`,
+* `docker rm webpage`
+* `docker run -d -p 80:80 webpage`
 
 --- ---
 
 ## Montage de volumes
 
-<div class="rows">directory
-    <div class="cols">
+<div class="rows">
+    <div>
         <iframe data-src="http://localhost:8080"></iframe>
     </div>
     <div>
@@ -398,18 +403,14 @@ STÉPHANE
 
 STÉPHANE
 * `cd builds/webpage`
-* Suppression `COPY index.html /usr/share/nginx/html/`,
-* `docker build .`,
-* `docker run -v .:/usr/share/nginx/html/ -d --name=webpage webpage`
-* Refresh de la page,
-* Édition `vim index.html`,
-* Refresh de la page.
+* `docker run -v .:/usr/share/nginx/html/ -d --name=server nginx`
+* Refresh de la page
+* Édition `vim index.html`
+* Refresh de la page
 
 ---
 
----
-
-# Sécurité & common flaws
+# Sécurité
 
 !!!
 
@@ -417,17 +418,17 @@ Julien
 
 --- ---
 
-## Attention aux images mal intentionnées
+## <i class="fas fa-exclamation-triangle" style="color: red"></i> Attention aux images mal intentionnées !
 
 <div class="rows">
     <div>
         <ul>
-            <li>Utiliser en priorité les images officielles</li>
-            <li>Toujours regarder le Dockerfile</li>
-            <li>S'assurer que l'image a été générée avec ce Dockerfile</li>
-            <li>Vérifier les ressources téléchargées via wget ou curl ou ADD</li>
-            <li>Privilégier les images bien notées</li>
-			<li>Si possible, se faire sa propre image</li>
+            <li>Utiliser en priorité les <strong>images officielles</strong></li>
+            <li>Toujours <strong>regarder le Dockerfile</strong></li>
+            <li>S'assurer que l'image a été <strong>générée avec</strong> ce Dockerfile</li>
+            <li>Vérifier les ressources téléchargées via `wget` ou `curl` ou `ADD`</li>
+            <li>Privilégier les <strong>images bien notées</strong></li>
+			<li>Si possible, <strong>se faire sa propre image</strong></li>
         </ul>
     </div>
 </div>
@@ -446,7 +447,7 @@ Julien
     </div>
     <div>
         <ul>
-            <li>Penser à mapper les users correctement</li>
+            <li>Penser à remapper les users via le mécanisme de _user namespacing_ (`userns-remap`).</li>
         </ul>
     </div>
 </div>
@@ -455,18 +456,14 @@ Julien
 
 Julien
 
-* `sudo su -`
-* `echo "ceci est un contenu secret uniquement accessible a root" > /tmp/secret.txt`
-* `chmod 600 /tmp/secret.txt`
-* `exit`
+* `ls -al /root/secret.txt`
 * `docker run --rm -v /tmp:/tmp alpine cat /tmp/secret.txt`
-
 
 ---
 
-# DockerInDocker
+# Docker In Docker In Docker In…
 
-<img src="img/spintop.jpg" width="50%" />
+<img src="https://media.giphy.com/media/iNwXHhkqlfOla/giphy.gif" />
 
 !!!
 
