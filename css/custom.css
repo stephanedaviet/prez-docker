@@ -5,12 +5,12 @@
 }
 .reveal code {
     font-family: 'Source Code Pro', monospace;
-    color: coral;
-    font-weight: 300;
+    color: brown;
+    font-weight: 400;
     font-size: 0.9em;
 }
 .reveal code.hljs {
-    color: white;
+    color: black;
     font-weight: 400;
     font-size: 1em;
 }

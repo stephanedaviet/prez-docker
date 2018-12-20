@@ -102,7 +102,7 @@ JULIEN
 
 JULIEN
 1. `service docker status`
-2. `curl --unix-socket /var/run/docker.sock http://localhost/images/json | jq .`
+2. `curl \-\-unix-socket /var/run/docker.sock http://localhost/images/json | jq .`
 3. `docker version`
 
 --- ---
