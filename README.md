@@ -4,7 +4,7 @@ Présentation réalisée avec [reveal.js](https://github.com/stephanedaviet/prez
 
 ## Prérequis
 
-* Il est nécessaire d'avoir [Gotty](https://github.com/yudai/gotty) (ou tout autre émulateur de terminal Web servi sur un port 8080).
+* Il est nécessaire d'avoir un serveur SSH qui tourne en local pour que Wetty s'y connecte (et d'avoir configuré ses clés SSH).
 
 ## Howto
 
